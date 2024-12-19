@@ -60,13 +60,69 @@ public class UserDao {
 		return userVo;
 	}
 	
+	public UserVo findById(Long id) {
+		UserVo vo = null;
+		try (
+			Connection conn = getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select name,password,gender where id = ?");
+			
+		) {
+			pstmt.setLong(1, id);
+
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String name = rs.getString(1);
+				String password = rs.getString(2);
+				String gender = rs.getString(3);
+				
+				vo = new UserVo();
+				vo.setName(name);
+				vo.setPassword(password);
+				vo.setGender(gender);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("book error1:" + e);
+		}
+		return vo;
+	}
+
+	public UserVo update(UserVo vo) {
+
+		try (
+			Connection conn = getConnection();
+			PreparedStatement pstmt1 = conn.prepareStatement("update user set name=?, gender=?, password=? where id = ?");
+			PreparedStatement pstmt2 = conn.prepareStatement("update user set name=?, gender=? where id = ?");
+			
+		) {
+			if("".equals(vo.getPassword())) {
+				pstmt1.setString(1, vo.getName());
+				pstmt1.setString(2, vo.getGender());
+				pstmt1.setString(3, vo.getPassword());
+				pstmt1.setLong(4, vo.getId());
+			} else {
+				pstmt2.setString(1, vo.getName());
+				pstmt2.setString(2, vo.getGender());
+				pstmt2.setLong(3, vo.getId());
+			}
+			
+			pstmt1.executeUpdate();
+			pstmt2.executeUpdate();
+
+		} catch (SQLException e) {
+			System.out.println("book error1:" + e);
+		}
+		return vo;
+	}
+	
+	
 	private Connection getConnection() throws SQLException{
 		Connection conn = null;
 		
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 		
-			String url = "jdbc:mariadb://192.168.0.15:3306/webdb";
+			String url = "jdbc:mariadb://192.168.50.1:3306/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -74,6 +130,4 @@ public class UserDao {
 		
 		return conn;
 	}
-
-
 }

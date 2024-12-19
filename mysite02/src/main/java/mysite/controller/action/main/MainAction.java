@@ -15,5 +15,4 @@ public class MainAction implements Action {
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/main/index.jsp");
 		rd.forward(request, response);
 	}
-	// post는 버려?
 }

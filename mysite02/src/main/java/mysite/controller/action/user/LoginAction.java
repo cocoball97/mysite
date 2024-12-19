@@ -20,7 +20,6 @@ public class LoginAction implements Action {
 		
 		UserVo vo = new UserDao().findByEmailAndPassword(email, password);
 		
-		System.out.println(vo);
 		
 		// 로그인 실패
 		if(vo == null) {

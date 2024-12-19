@@ -6,6 +6,7 @@ import jakarta.servlet.annotation.WebServlet;
 import mysite.controller.action.user.JoinSuccessAction;
 import mysite.controller.action.user.LoginFormAction;
 import mysite.controller.action.user.LogoutAction;
+import mysite.controller.action.user.UpdateAction;
 import mysite.controller.action.user.UpdateFormAction;
 import mysite.controller.action.user.LoginAction;
 import mysite.controller.action.main.MainAction;
@@ -24,62 +25,12 @@ public class UserServlet extends ActionServlet {
 			"loginform", new LoginFormAction(),
 			"login", new LoginAction(),
 			"logout", new LogoutAction(),
-			"updateform", new UpdateFormAction()
+			"updateform", new UpdateFormAction(),
+			"update", new UpdateAction()
 		);
 	
 	@Override
 	protected Action getAction(String actionName) {
 		return mapAction.getOrDefault(actionName, new MainAction());
-		
-		/*
-		if("joinform".equals(action)) {
-			action = new JoinFormAction();
-		} else if("joinform".equals(action)) {
-			action = new JoinAction();
-		} else {
-			action = new MainAction();
-		}
-		*/
 	}
-	
-	/*
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		request.setCharacterEncoding("utf-8");
-		
-		String action = request.getParameter("a");
-		
-		//user?a=joinform(GET)
-		if("joinform".equals(action)) {
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinform.jsp");
-			rd.forward(request, response);
-		//user?a=join(POST)	
-		} else if("join".equals(action)) { 
-			String name = request.getParameter("name");
-			String email = request.getParameter("email");
-			String password = request.getParameter("password");
-			String gender = request.getParameter("gender");
-			
-			UserVo vo = new UserVo();
-			vo.setName(name);
-			vo.setEmail(email);
-			vo.setPassword(password);
-			vo.setGender(gender);
-			
-			new UserDao().insert(vo);
-			
-			response.sendRedirect(request.getContextPath() + "/user?a=joinsuccess");
-			
-		//user?a=joinsuccess(GET)
-		} else if("joinsuccess".equals(action)) { 
-			RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/user/joinsuccess.jsp");
-			rd.forward(request, response);
-		} 
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
-	*/
-
 }

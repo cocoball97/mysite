@@ -23,6 +23,7 @@ public abstract class ActionServlet extends HttpServlet {
 		
 //		Action action = getAction(optionalActionName.isEmpty() ? "":optionalActionName.get());
 		Action action = getAction(optionalActionName.orElse(""));
+		// 실행이 어노테이션 '/user'에서 실행
 		action.execute(request, response);
 	}
 
