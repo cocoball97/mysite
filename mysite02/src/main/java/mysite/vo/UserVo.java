@@ -1,11 +1,25 @@
 package mysite.vo;
 
 public class UserVo {
+	private Long id;
 	private String name;
 	private String email;
 	private String password;
 	private String gender;
+	private String join_date;
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+	public String getJoin_date() {
+		return join_date;
+	}
+	public void setJoin_date(String join_date) {
+		this.join_date = join_date;
+	}
 	public String getName() {
 		return name;
 	}

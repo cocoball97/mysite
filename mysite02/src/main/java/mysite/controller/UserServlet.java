@@ -1,22 +1,50 @@
 package mysite.controller;
 
-import jakarta.servlet.RequestDispatcher;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.HttpServlet;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
-import mysite.dao.UserDao;
-import mysite.vo.UserVo;
+import java.util.Map;
 
-import java.io.IOException;
+import jakarta.servlet.annotation.WebServlet;
+import mysite.controller.action.user.JoinSuccessAction;
+import mysite.controller.action.user.LoginFormAction;
+import mysite.controller.action.user.LogoutAction;
+import mysite.controller.action.user.UpdateFormAction;
+import mysite.controller.action.user.LoginAction;
+import mysite.controller.action.main.MainAction;
+import mysite.controller.action.user.JoinAction;
+import mysite.controller.action.user.JoinFormAction;
 
 
 @WebServlet("/user")
-public class UserServlet extends HttpServlet {
+public class UserServlet extends ActionServlet {
 	private static final long serialVersionUID = 1L;
-
+	
+	private Map<String, Action> mapAction = Map.of(
+			"joinform", new JoinFormAction(), 
+			"join", new JoinAction(),
+			"joinsuccess", new JoinSuccessAction(),
+			"loginform", new LoginFormAction(),
+			"login", new LoginAction(),
+			"logout", new LogoutAction(),
+			"updateform", new UpdateFormAction()
+		);
+	
+	@Override
+	protected Action getAction(String actionName) {
+		return mapAction.getOrDefault(actionName, new MainAction());
+		
+		/*
+		if("joinform".equals(action)) {
+			action = new JoinFormAction();
+		} else if("joinform".equals(action)) {
+			action = new JoinAction();
+		} else {
+			action = new MainAction();
+		}
+		*/
+	}
+	
+	/*
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		request.setCharacterEncoding("utf-8");
 		
 		String action = request.getParameter("a");
@@ -52,5 +80,6 @@ public class UserServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
 	}
+	*/
 
 }

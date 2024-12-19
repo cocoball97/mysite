@@ -3,6 +3,7 @@ package mysite.dao;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import mysite.vo.UserVo;
@@ -30,7 +31,34 @@ public class UserDao {
 		return count;
 	}
 	
-	
+
+	public UserVo findByEmailAndPassword(String email, String password) {
+		UserVo userVo = null;
+		
+		try (
+			Connection conn = getConnection();
+			PreparedStatement pstmt = conn.prepareStatement("select id, name from user where email=? and password=?");
+		) {
+			pstmt.setString(1, email);
+			pstmt.setString(2, password);
+			
+			ResultSet rs = pstmt.executeQuery();
+			if(rs.next()) {
+				Long id = rs.getLong(1);
+				String name = rs.getString(2);
+				
+				userVo = new UserVo();
+				userVo.setId(id);
+				userVo.setName(name);
+			}
+			
+			rs.close();
+		} catch (SQLException e) {
+			System.out.println("error:" + e);
+		} 
+		
+		return userVo;
+	}
 	
 	private Connection getConnection() throws SQLException{
 		Connection conn = null;
@@ -38,7 +66,7 @@ public class UserDao {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 		
-			String url = "jdbc:mariadb://192.168.35.165:3306/webdb";
+			String url = "jdbc:mariadb://192.168.0.15:3306/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
