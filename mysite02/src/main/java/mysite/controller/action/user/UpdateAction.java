@@ -17,10 +17,6 @@ public class UpdateAction implements Action {
 		HttpSession session = request.getSession();
 		
 		// Access Control
-		if(session == null) {
-			response.sendRedirect(request.getContextPath());
-			return;
-		}
 		UserVo authUser = (UserVo)session.getAttribute("authUser");
 		if(authUser == null) {
 			response.sendRedirect(request.getContextPath());

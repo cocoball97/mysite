@@ -29,12 +29,7 @@ public class UpdateFormAction implements Action {
 			return;
 		}
 		////////////////////////////////////////////
-		
-		// update 과제
-//		비번 비어있으면 변경하지 않겠다는 의미
-//		비번 채워있다면 비번도 변경하겠다는 의미
-//		그 다음 리다이렉트
-		
+
 		
 		UserVo vo = new UserDao().findById(authUser.getId());
 		request.setAttribute("vo", vo);

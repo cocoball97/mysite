@@ -7,15 +7,15 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
+@SuppressWarnings("serial")
 public abstract class ActionServlet extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
 	// factory method
 	protected abstract Action getAction(String actionName);
 
 	// operation
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("utf-8");
+//		request.setCharacterEncoding("utf-8");
 
 //		String actionName = Optional.ofNullable(request.getParameter("a")).orElse("");
 		
