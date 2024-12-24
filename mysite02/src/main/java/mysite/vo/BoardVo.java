@@ -8,7 +8,7 @@ public class BoardVo {
 	private String reg_date;
 	private Long g_no;
 	private Long o_no;
-	private String dept;
+	private Long dept;
 	private Long user_id;
 	private String name;
 	
@@ -54,10 +54,10 @@ public class BoardVo {
 	public void setO_no(Long o_no) {
 		this.o_no = o_no;
 	}
-	public String getDept() {
+	public Long getDept() {
 		return dept;
 	}
-	public void setDept(String dept) {
+	public void setDept(Long dept) {
 		this.dept = dept;
 	}
 	public Long getUser_id() {

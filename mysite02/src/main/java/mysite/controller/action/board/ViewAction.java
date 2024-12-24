@@ -17,9 +17,18 @@ public class ViewAction implements Action {
 		String id = request.getParameter("id");
 		BoardVo vo = new BoardDao().findById(Long.parseLong(id));
 		request.setAttribute("vo", vo);
+		
+		System.out.println("view id : "+vo.getId());
+		System.out.println("view title : "+vo.getTitle());
+		System.out.println("view contents : "+vo.getContents());
 
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/view.jsp");
 		rd.forward(request, response);
+		
+		
 	}
 
 }
+
+
+

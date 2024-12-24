@@ -40,15 +40,14 @@
 							<td>${vo.name }</td>
 							<td>${vo.hit }</td>
 							<td>${vo.reg_date }</td>
-							<td><a href="${pageContext.request.contextPath }/guestbook?a=deleteform&id=${vo.id }">삭제</a></td>
 							
-							
-							<!--     연결 못함... 휴지통
-							<td><a href="${pageContext.request.contextPath}/assets/images/recycle.jpg" class="del">삭제</a></td>
-							 -->
-							 
-							 
-							 
+							<c:if test="${vo.user_id == sessionScope.authUser.id}">
+								<td>
+									<a href="${pageContext.request.contextPath}/board?a=delete&id=${vo.id}">
+										<img src="${pageContext.request.contextPath}/assets/images/recycle.png">
+									</a>
+								</td>
+							</c:if>							 
 						</tr>
 					</c:forEach>
 
@@ -69,10 +68,13 @@
 					</ul>
 				</div>
 				<!-- pager 추가 -->
-
+			
 				<div class="bottom">
-					<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
+					<c:if test="${null != sessionScope.authUser.id}">
+						<a href="${pageContext.request.contextPath }/board?a=writeform&id=${sessionScope.authUser.id}" id="new-book">글쓰기</a>
+					</c:if>
 				</div>
+				
 			</div>
 		</div>
 		<c:import url="/WEB-INF/views/includes/navigation.jsp" />

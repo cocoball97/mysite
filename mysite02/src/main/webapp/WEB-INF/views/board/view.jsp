@@ -33,7 +33,12 @@
 				</table>
 				<div class="bottom">
 					<a href="${pageContext.request.contextPath }/board">글목록</a>
-					<a href="${pageContext.request.contextPath }/board?a=modifyform&id=${vo.id }">글수정</a>
+					<c:if test="${vo.user_id == sessionScope.authUser.id}">
+						<a	href="${pageContext.request.contextPath }/board?a=modifyform&id=${vo.id }">글수정</a>
+					</c:if>
+					<c:if test="${null != sessionScope.authUser.id}">
+						<a href="${pageContext.request.contextPath }/board?a=writeform&id=${vo.id }">답글달기</a>
+					</c:if>
 				</div>
 			</div>
 		</div>
