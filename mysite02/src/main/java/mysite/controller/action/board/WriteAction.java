@@ -33,18 +33,24 @@ public class WriteAction implements Action {
 		
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
-		
+
+
 		BoardVo vo = new BoardVo();
 		vo.setTitle(title);
 		vo.setContents(content);
+		vo.setHit(0L);
+		vo.setO_no(1L);
+		vo.setDept(1L);
+		vo.setUser_id(1L);
 		vo.setUser_id(authUser.getId());
 		
 		new BoardDao().insert(vo);
-		
-		
 		
 		response.sendRedirect(request.getContextPath() + "/board");
 
 	}
 
 }
+
+
+

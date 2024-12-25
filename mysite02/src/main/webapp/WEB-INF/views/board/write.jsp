@@ -18,22 +18,26 @@
 			<div id="board">
 				<form class="board-form" method="post"
 					action="${pageContext.request.contextPath }/board">
-					<input type="hidden" name="a" value="write">
+					<input type="hidden" name="a" value="write"> 
+					<input type="hidden" name="g_no" value="${vo.g_no}"> 
+					<input type="hidden" name="o_no" value="${vo.o_no}"> 
+					<input type="hidden" name="dept" value="${vo.dept}">
 					<table class="tbl-ex">
 						<tr>
 							<th colspan="2">글쓰기</th>
 						</tr>
 						<c:choose>
-							<c:when test="${vo.user_id != sessionScope.authUser.id}">
+							<c:when test="${empty vo.id }">
 								<tr>
 									<td class="label">제목</td>
-									<td><input type="text" name="title"	value="(RE)${vo.title}"></td>
+									<td><input type="text" name="title" value="${vo.title}"></td>
 								</tr>
 							</c:when>
 							<c:otherwise>
 								<tr>
 									<td class="label">제목</td>
-									<td><input type="text" name="title" value="${vo.title}"></td>
+									<td><input type="text" name="title"
+										value="(RE)${vo.title}"></td>
 								</tr>
 							</c:otherwise>
 						</c:choose>
@@ -43,8 +47,8 @@
 						</tr>
 					</table>
 					<div class="bottom">
-						<a href="${pageContext.request.contextPath }/board">취소</a> <input
-							type="submit" value="등록">
+						<a href="${pageContext.request.contextPath }/board">취소</a> 
+						<input type="submit" value="등록">
 					</div>
 				</form>
 			</div>
