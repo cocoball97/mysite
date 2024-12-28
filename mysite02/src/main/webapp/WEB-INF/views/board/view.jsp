@@ -37,7 +37,7 @@
 						<a	href="${pageContext.request.contextPath }/board?a=modifyform&id=${vo.id }">글수정</a>
 					</c:if>
 					<c:if test="${null != sessionScope.authUser.id}">
-						<a href="${pageContext.request.contextPath }/board?a=writeform&id=${vo.id }&g_no=${vo.g_no }&o_no=${vo.o_no }&dept=${vo.dept }">답글달기</a>
+						<a href="${pageContext.request.contextPath }/board?a=writeform&id=${vo.id }">답글달기</a>
 					</c:if>
 				</div>
 			</div>

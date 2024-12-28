@@ -15,21 +15,17 @@ public class WriteFormAction implements Action {
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-//		String id = request.getParameter("id");
-//		String o_no = request.getParameter("o_no");
-//		String dept = request.getParameter("dept");
+		String id = request.getParameter("id");
 		
 		
-//		Long maxGNo = new BoardDao().findMaxGNo();
-		// 처리하고 find하자
+		if(id != null) {
+			BoardVo vo = new BoardDao().findById(Long.parseLong(id));
+			request.setAttribute("vo", vo);
+			System.out.println("writeform g_no:"+vo.getG_no());
+		}
 		
+		System.out.println("null 맞지?");
 		
-//		BoardVo vo = new BoardDao().findById(Long.parseLong(id));
-
-//		vo.setO_no(Long.parseLong(o_no));
-//		vo.setDept(Long.parseLong(dept));
-		
-//		request.setAttribute("vo", vo);
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/write.jsp");
 		rd.forward(request, response);

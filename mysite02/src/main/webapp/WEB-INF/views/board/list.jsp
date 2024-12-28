@@ -71,7 +71,7 @@
 			
 				<div class="bottom">
 					<c:if test="${null != sessionScope.authUser.id}">
-						<a href="${pageContext.request.contextPath }/board?a=writeform&id=${sessionScope.authUser.id}" id="new-book">글쓰기</a>
+						<a href="${pageContext.request.contextPath }/board?a=writeform" id="new-book">글쓰기</a>
 					</c:if>
 				</div>
 				

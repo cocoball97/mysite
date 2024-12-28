@@ -22,13 +22,13 @@ public class EncodingFilter extends HttpFilter implements Filter {
 
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
 		/* request */
-		System.out.println("EncodingFilter.doFilter() called: request processing");
+//		System.out.println("EncodingFilter.doFilter() called: request processing");
 		request.setCharacterEncoding(encoding);
 		
 		chain.doFilter(request, response);
 		
 		/* response */
-		System.out.println("EncodingFilter.doFilter() called: response processing");
+//		System.out.println("EncodingFilter.doFilter() called: response processing");
 	}
 
 	public void destroy() {
