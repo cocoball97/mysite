@@ -34,7 +34,7 @@
 					<c:forEach items="${list }" var="vo" varStatus="status">
 						<tr>
 							<td>${count-status.index }</td>
-							<td style="text-align:left; padding-left:${vo.dept * 20 }px">
+							<td style="text-align:left; padding-left:${vo.dept * 10}px">
 								<a href="${pageContext.request.contextPath}/board?a=view&id=${vo.id}&g_no=${vo.g_no}&o_no=${vo.o_no }&dept=${vo.dept }">${vo.title }</a>
 							</td>
 							<td>${vo.name }</td>
