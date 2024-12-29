@@ -52,20 +52,16 @@ public class WriteAction implements Action {
 			vo.setO_no(1L);
 			vo.setDept(0L);
 			
-			System.out.println("설마 아니지?");
 			
 		} else {
 			// 답글달기			
 			
-			System.out.println("답글 맞잖아?");
 			Long g_no = Long.parseLong(request.getParameter("g_no"));
-			System.out.println("g_no값 왜이러는데:"+g_no);
 			Long o_no = Long.parseLong(request.getParameter("o_no"));
 			Long dept = Long.parseLong(request.getParameter("dept"));
 			
 			boardDao.updateNo(g_no, o_no, dept);
 			
-			System.out.println("업데이트 이후 g_no :" +g_no);
 			vo.setG_no(g_no);
 			vo.setO_no(o_no+1);
 			vo.setDept(dept+1);

@@ -21,12 +21,9 @@ public class WriteFormAction implements Action {
 		if(id != null) {
 			BoardVo vo = new BoardDao().findById(Long.parseLong(id));
 			request.setAttribute("vo", vo);
-			System.out.println("writeform g_no:"+vo.getG_no());
 		}
 		
-		System.out.println("null 맞지?");
-		
-		
+				
 		RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/board/write.jsp");
 		rd.forward(request, response);
 	}

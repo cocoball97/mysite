@@ -36,8 +36,8 @@
 								<tr>
 									<td class="label">제목</td>
 									<c:choose>
-										<c:when test='${vo != null}'>
-											<td><input type="text" name="title" value="RE: ${vo.title }"></td>
+										<c:when test='${vo != null }'>
+											<td><input type="text" name="title" value="RE) ${vo.title }"></td>
 										</c:when>
 										<c:otherwise>
 											<td><input type="text" name="title" value=""></td>

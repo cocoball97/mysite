@@ -16,8 +16,6 @@ public class BoardDao {
 		List<BoardVo> result = new ArrayList<>();
 
 		try (Connection conn = getConnection(); PreparedStatement pstmt = conn.prepareStatement(
-		// 페이징 안함
-//					"select a.id, title, b.name, hit, reg_date from board a join user b on a.user_id = b.id order by g_no desc, o_no asc;");	
 				"select a.id, a.title, a.contents, a.hit, a.reg_date, a.g_no, a.o_no, a.dept, a.user_id, b.name from board a join user b on a.user_id = b.id order by g_no desc, o_no asc;");
 				ResultSet rs = pstmt.executeQuery();) {
 
@@ -144,6 +142,50 @@ public class BoardDao {
 		}
 	}
 
+	public List<BoardVo> findBypage(int write_no, int write_page) {
+List<BoardVo> result = new ArrayList<BoardVo>();
+		
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement(
+						"select b.id, b.title, u.name, b.hit, date_format(b.reg_date, '%Y-%m-%d %h:%i:%s'), b.dept, u.id" +
+						"  from board b join user u" +
+						"    on b.user_id=u.id" +
+						" order by g_no desc, o_no asc" + 
+						" limit ?, ?");
+		)
+		{
+			pstmt.setInt(1, write_no);
+			pstmt.setInt(2, write_page);
+			
+			ResultSet rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				Long id = rs.getLong(1);
+				String title = rs.getString(2);
+				String name = rs.getString(3);
+				Long hit = rs.getLong(4);
+				String reg_date = rs.getString(5);
+				Long dept = rs.getLong(6);
+				Long userId = rs.getLong(7);
+				
+				BoardVo vo = new BoardVo();
+				vo.setId(id);
+				vo.setTitle(title);
+				vo.setName(name);
+				vo.setHit(hit);
+				vo.setReg_date(reg_date);
+				vo.setDept(dept);
+				vo.setUser_id(userId);
+				
+				result.add(vo);
+			}
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		}
+		return result;
+	}
+	
 	public BoardVo modify(BoardVo vo) {
 		try (Connection conn = getConnection();
 				PreparedStatement pstmt1 = conn
@@ -161,6 +203,23 @@ public class BoardDao {
 		return vo;
 	}
 
+
+	public void updateView(Long id) {
+		try (
+				Connection conn = getConnection();
+				PreparedStatement pstmt = conn.prepareStatement("update board set hit=hit+1 where id=?");
+		) {
+			
+				pstmt.setLong(1, id); 
+				
+				pstmt.executeUpdate();
+				
+		} catch (SQLException e) {
+			System.out.println("error: " + e);
+		}
+	}
+	
+	
 	public void deleteById(Long id) {
 
 		try (Connection conn = getConnection();
@@ -180,7 +239,7 @@ public class BoardDao {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 
-			String url = "jdbc:mariadb://192.168.35.9:3306/webdb";
+			String url = "jdbc:mariadb://192.168.71.1:3306/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
@@ -188,5 +247,4 @@ public class BoardDao {
 
 		return conn;
 	}
-
 }

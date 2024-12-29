@@ -14,7 +14,13 @@ public class ViewAction implements Action {
 	
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		String id = request.getParameter("id");
+		
+		BoardDao boardDao = new BoardDao();
+		boardDao.updateView(Long.parseLong(id));
+		
+		
 		BoardVo vo = new BoardDao().findById(Long.parseLong(id));
 		request.setAttribute("vo", vo);
 
