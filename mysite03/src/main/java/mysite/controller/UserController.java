@@ -6,6 +6,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import jakarta.servlet.http.HttpSession;
+import mysite.security.Auth;
+import mysite.security.AuthUser;
 import mysite.service.UserService;
 import mysite.vo.UserVo;
 
@@ -45,53 +47,45 @@ public class UserController {
 		return "user/login";
 	}
 	
-	@RequestMapping(value="/login", method=RequestMethod.POST)
-	// 인자는 객체를 받는 것 추천
-	// Model : 컨트롤러 -> 뷰. 렌더링용 데이터 전달 /  vo객체 : 데이터 처리 . (내가 보기엔 데이터 전달받기 위한?)
-	public String login(HttpSession session, UserVo userVo, Model model) {
-		UserVo authUser = userService.getUser(userVo.getEmail(), userVo.getPassword());
-		if(authUser == null) {
-			model.addAttribute("email", userVo.getEmail());
-			model.addAttribute("result", "fail");
-			return "user/login";
-		}
-		
-		// login 처리
-		session.setAttribute("authUser",authUser);
-		return "redirect:/";
-	}
+	// 보안 관련된 로그인 로그아웃은 인터셉터에서 처리되는 것이 권장
+//	@RequestMapping(value="/login", method=RequestMethod.POST)
+//	// 인자는 객체를 받는 것 추천
+//	// Model : 컨트롤러 -> 뷰. 렌더링용 데이터 전달 /  vo객체 : 데이터 처리 . (내가 보기엔 데이터 전달받기 위한?)
+//	public String login(HttpSession session, UserVo userVo, Model model) {
+//		UserVo authUser = userService.getUser(userVo.getEmail(), userVo.getPassword());
+//		if(authUser == null) {
+//			model.addAttribute("email", userVo.getEmail());
+//			model.addAttribute("result", "fail");
+//			return "user/login";
+//		}
+//		
+//		// login 처리
+//		session.setAttribute("authUser",authUser);
+//		return "redirect:/";
+//	}
 	
-	@RequestMapping("/logout")
-	public String logout(HttpSession session) {
-		session.removeAttribute("authUser");
-		// 세션종료
-		session.invalidate();
-		
-		return "redirect:/";
-	}
+//	@RequestMapping("/logout")
+//	public String logout(HttpSession session) {
+//		session.removeAttribute("authUser");
+//		// 세션종료
+//		session.invalidate();
+//		
+//		return "redirect:/";
+//	}
 	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.GET)
-	public String update(HttpSession session, Model model) {
-		// Access Control (로그인 안하고 접속하면 에러 발생하기 때문에 방지)
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		
+	public String update(@AuthUser UserVo authUser, Model model) {
 		UserVo userVo = userService.getUser(authUser.getId());
+		
 		model.addAttribute("vo", userVo);
 		return "user/update";
 	}
 	
+	@Auth
 	@RequestMapping(value="/update", method=RequestMethod.POST)
-	public String update(HttpSession session, UserVo userVo) {
-		
-		UserVo authUser = (UserVo)session.getAttribute("authUser");
-		if(authUser == null) {
-			return "redirect:/";
-		}
-		
-		// 값이 없는 id를 위해  확인 절차 필요
+											// 이게 데이터 바인딩
+	public String update(@AuthUser UserVo authUser, UserVo userVo) {		
 		userVo.setId(authUser.getId());	
 		userService.update(userVo);
 		

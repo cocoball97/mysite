@@ -18,7 +18,7 @@ public class UserRepository {
 
 		try (
 				Connection conn = getConnection();
-				PreparedStatement pstmt1 = conn.prepareStatement("insert into user values (null, ?, ?, ?, ?, now())");
+				PreparedStatement pstmt1 = conn.prepareStatement("insert into user values(null, ?, ?, ?, ?, now(), 'USER')");
 		) {
 			pstmt1.setString(1, vo.getName());
 			pstmt1.setString(2, vo.getEmail());
@@ -40,7 +40,7 @@ public class UserRepository {
 		
 		try (
 			Connection conn = getConnection();
-			PreparedStatement pstmt = conn.prepareStatement("select id, name from user where email=? and password=?");
+			PreparedStatement pstmt = conn.prepareStatement("select id, name, role from user where email=? and password=?");
 		) {
 			pstmt.setString(1, email);
 			pstmt.setString(2, password);
@@ -49,10 +49,12 @@ public class UserRepository {
 			if(rs.next()) {
 				Long id = rs.getLong(1);
 				String name = rs.getString(2);
+				String role = rs.getString(3);
 				
 				userVo = new UserVo();
 				userVo.setId(id);
 				userVo.setName(name);
+				userVo.setRole(role);
 			}
 			
 			rs.close();
@@ -125,7 +127,7 @@ public class UserRepository {
 		try {
 			Class.forName("org.mariadb.jdbc.Driver");
 		
-			String url = "jdbc:mariadb://192.168.35.9:3306/webdb";
+			String url = "jdbc:mariadb://192.168.35.34:3306/webdb";
 			conn = DriverManager.getConnection(url, "webdb", "webdb");
 		} catch (ClassNotFoundException e) {
 			System.out.println("드라이버 로딩 실패:" + e);
