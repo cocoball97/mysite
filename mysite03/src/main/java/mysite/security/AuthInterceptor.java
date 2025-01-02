@@ -32,8 +32,8 @@
 //		    System.out.println("Controller: " + controllerName + ", Method: " + methodName);
 		
 			
-		    // 3. Handler에서 @Auth 가져오기
-			// getMethodAnnotation : 어노테이션 찾기
+		    // 3. Handler Method에서 @Auth 가져오기   
+			// getMethodAnnotation : Method에서 어노테이션 찾기
 			Auth auth = handlerMethod.getMethodAnnotation(Auth.class);
 			
 			// 4. Handler Method에서 @Auth가 없으면 클래스(타입)에서 가져오기
@@ -50,12 +50,14 @@
 			HttpSession session = request.getSession();
 			UserVo authUser = (UserVo)session.getAttribute("authUser");
 			
+			// 로그인이 안 되어 있다면
 			if(authUser == null) {
 				response.sendRedirect(request.getContextPath() + "/user/login");
 				return false;
 			}
 			
-			// 7. 권한 체크를 위해 role(USER, ADMIN) 가져오기			
+			// 7. 권한 체크를 위해 role(USER, ADMIN) 가져오기		
+			// default(USER)가 있어 무조건 존재
 			String role = auth.role();
 			
 			// 8. @Auth의 role이 "USER"인 경우, authUser 의 role은 상관없다
@@ -69,7 +71,7 @@
 				return false;
 			}
 			
-			// 10. @Auth가 붙어 있고 인증도 된 경우
+			// 10. 옳은 관리자 권한  [@Auth(role="ADMIN") && authUser.role="ADMIN"]
 			return true;
 		}
 	
