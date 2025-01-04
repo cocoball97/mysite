@@ -1,4 +1,4 @@
-package mystie.exception;
+package mysite.exception;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

@@ -15,7 +15,6 @@ public class GuestbookService {
         this.guestbookRepository = guestbookRepository;
     }
 
-	// 파라미터는 알아서
 	public List<GuestbookVo> getContentsList(){
 		return guestbookRepository.findAll();
 	}

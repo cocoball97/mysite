@@ -1,19 +1,28 @@
-//package mysite.service;
-//
-//import org.springframework.stereotype.Service;
-//
-//@Service
-//public class BoardService {
-//	
-//	public void addContents(BoardVo vo) {
-//		
-//	}
-//	
+package mysite.service;
+
+import org.springframework.stereotype.Service;
+
+import mysite.repository.BoardRepository;
+import mysite.vo.BoardVo;
+
+@Service
+public class BoardService {
+	private BoardRepository boardRepository;
+	
+	public BoardService(BoardRepository boardRepository) {
+		this.boardRepository = boardRepository;
+	}
+	
 //	public BoardVo getContents(Long id) {
-//		
+//		return boardRepository.findById(id);
 //	}
 //	
-//	// 업데이트할떄 userid 기반으로 확인
+//	public void addContents(BoardVo boardVo) {
+//		boardRepository.insert(boardVo);
+//	}
+//	
+
+//	
 //	public BoardVo getContents(Long id, Long userId) {
 //		
 //	}
@@ -25,18 +34,6 @@
 //	public void deleteContents(Long id, String userId) {
 //		
 //	}
-//	
-//	public Map<String, Object> getContentsList(int currentPage, String keyword){
-//		List<BoardVo> list = null;
-//		
-//		// view의 pagination 을 위한 데이터 값 계산
-//		
-//		
-//		/*
-//		int beginPage
-//		int endPage
-//		*/
-//		
-//	}
-//	
-//}
+	
+
+}
