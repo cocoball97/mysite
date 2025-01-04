@@ -6,26 +6,14 @@ public class UserVo {
 	private String email;
 	private String password;
 	private String gender;
-	private String join_date;
+	private String joinDate;
 	private String role;
 	
-	public String getRole() {
-		return role;
-	}
-	public void setRole(String role) {
-		this.role = role;
-	}
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
-	}
-	public String getJoin_date() {
-		return join_date;
-	}
-	public void setJoin_date(String join_date) {
-		this.join_date = join_date;
 	}
 	public String getName() {
 		return name;
@@ -51,5 +39,21 @@ public class UserVo {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
-	
+	public String getJoinDate() {
+		return joinDate;
+	}
+	public void setJoinDate(String joinDate) {
+		this.joinDate = joinDate;
+	}	
+	public String getRole() {
+		return role;
+	}
+	public void setRole(String role) {
+		this.role = role;
+	}
+	@Override
+	public String toString() {
+		return "UserVo [id=" + id + ", name=" + name + ", email=" + email + ", password=" + password + ", gender="
+				+ gender + ", joinDate=" + joinDate + ", role=" + role + "]";
+	}
 }
