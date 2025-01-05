@@ -26,8 +26,16 @@ public class AdminController {
 	
 	@RequestMapping({"", "/main"})
 	public String main(Model model) {
-		model.addAttribute("siteVo", siteService.getSite());
-		return "admin/main";
+		SiteVo siteVo = siteService.getSite();
+	    model.addAttribute("siteVo", siteVo);
+
+	    // siteVo에서 profile 값을 직접 출력
+	    System.out.println("=================== Profile: " + siteVo.getProfile());
+	    return "admin/main";
+	    
+	    
+//		model.addAttribute("siteVo", siteService.getSite());
+//		return "admin/main";
 	}
 	
 	@RequestMapping("/main/update")

@@ -14,6 +14,7 @@ public class SiteService {
 	}
 	
 	public SiteVo getSite() {
+		System.out.println(("출력================="+siteRepository.find().getProfile()));
 		return siteRepository.find();
 	}
 	
