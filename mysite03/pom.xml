@@ -9,7 +9,8 @@
 	</parent>
 	<artifactId>mysite03</artifactId>
 	<packaging>war</packaging>
-		<properties>
+	
+	<properties>
 		<project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
@@ -83,20 +84,19 @@
 			<version>3.0.1</version>
 		</dependency>
 
-		<!--  Logback  -->
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jcl-over-slf4j</artifactId>
-			<version>${jcloverslf4j.version}</version>
+		<!-- Logback --> 
+		<dependency>                                    
+			<groupId>org.slf4j</groupId>                
+			<artifactId>jcl-over-slf4j</artifactId>     
+			<version>${jcloverslf4j.version}</version>  
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<version>${logback.version}</version>
-		</dependency>
-		
+		</dependency>		
+
 		<!-- servlet api -->
-		
 		<dependency>
 			<groupId>jakarta.servlet</groupId>
 			<artifactId>jakarta.servlet-api</artifactId>
