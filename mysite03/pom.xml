@@ -15,10 +15,10 @@
 		<maven.compiler.source>21</maven.compiler.source>
 		<maven.compiler.target>21</maven.compiler.target>
 		<org.springframework-version>6.2.1</org.springframework-version>
-		<jcloverslf4j.version>1.7.36</jcloverslf4j.version>
-		<logback.version>1.2.11</logback.version>
+		<jcloverslf4j.version>1.7.36</jcloverslf4j.version>		
+    	<logback.version>1.2.11</logback.version>
 	</properties>
-	
+
 	<dependencies>
 		<!-- spring mvc-->
 		<dependency>
@@ -34,6 +34,13 @@
 			</exclusions>
 		</dependency>
 
+		<!-- spring aspects -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aspects</artifactId>
+			<version>${org.springframework-version}</version>
+		</dependency>
+		
 		<!-- spring jdbc -->
 		<dependency>
 			<groupId>org.springframework</groupId>

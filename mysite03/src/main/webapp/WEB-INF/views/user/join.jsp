@@ -15,7 +15,7 @@
 		<div id="content">
 			<div id="user">
 				<form id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath }/user/join">
-					<label class="block-label" for="name">이름</label>
+					<label class="block-label" for="name"><spring:message cod="user.join.label.name"/> </label>
 					<input id="name" name="name" type="text" value="">
 
 					<label class="block-label" for="email">이메일</label>
@@ -37,7 +37,8 @@
 						<label>서비스 약관에 동의합니다.</label>
 					</fieldset>
 					
-					<input type="submit" value="가입하기">		
+					<spring:message code="user.join.button.signup" var="userSignupButtonText" /> 
+					<input type="submit" value="${userSignupButtonText }">		
 				</form>
 			</div>
 		</div>
