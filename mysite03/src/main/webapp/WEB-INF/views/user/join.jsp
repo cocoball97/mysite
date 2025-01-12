@@ -49,13 +49,7 @@ $(function(){
 		<div id="content">
 			<div id="user">
 
-				<form:form
-					modelAttribute="userVo"
-					id="join-form"
-					name="joinForm"
-					method="post"
-					action="${pageContext.request.contextPath}/user/join">
-					
+				<form:form modelAttribute="userVo" id="join-form" name="joinForm" method="post" action="${pageContext.request.contextPath}/user/join">
 					<label class="block-label" for="name"><spring:message code="user.join.label.name" /></label>
 					<form:input path="name" />
 					<p style="color:#f00; text-align:left; padding:0">
