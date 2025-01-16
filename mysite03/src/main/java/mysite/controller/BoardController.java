@@ -43,7 +43,6 @@ public class BoardController {
 	@RequestMapping("/view/{id}")
 	public String view(@PathVariable("id") Long id, Model model) {
 		BoardVo boardVo = boardService.getContents(id);
-		System.out.println("2222222222222222"+boardVo.getId());
 		model.addAttribute("boardVo", boardVo);
 		return "board/view";
 	}

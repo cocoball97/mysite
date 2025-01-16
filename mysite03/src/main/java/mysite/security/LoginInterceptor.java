@@ -28,6 +28,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 			request.setAttribute("email", email);
 			request.setAttribute("result", "fail");
 			request.getRequestDispatcher("/WEB-INF/views/user/login.jsp").forward(request, response);
+			System.out.println("잘못된거!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			return false;
 			
 		}
