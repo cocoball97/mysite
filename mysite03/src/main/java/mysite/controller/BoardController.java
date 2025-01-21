@@ -82,7 +82,6 @@ public class BoardController {
 		@RequestParam(value="kwd", required=true, defaultValue="") String keyword) {		
 		boardVo.setUserId(authUser.getId());
 		boardService.modifyContents(boardVo);
-		System.out.println("아닌가           여긴가???????"+boardVo.getId());
 		return "redirect:/board/view/" + boardVo.getId() + 
 				"?p=" + page + 
 				"&kwd=" + WebUtil.encodeURL( keyword, "UTF-8" );

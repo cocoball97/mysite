@@ -32,7 +32,6 @@ public class BoardService {
 
 	public BoardVo getContents(Long id) {
 		BoardVo boardVo = boardRepository.findById(id);
-		System.out.println("==============================================="+boardVo.getId());
 		// 기존에 글이 있으면 조회수 상승
 		if(boardVo != null) {
 			boardRepository.updateHit(id);
