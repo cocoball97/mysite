@@ -1,9 +1,9 @@
-package mysite.config.app;
+package mysite.config;
 
 import java.io.IOException;
 
+import org.springframework.boot.SpringBootConfiguration;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
@@ -27,15 +27,14 @@ import jakarta.servlet.http.HttpServletResponse;
 import mysite.repository.UserRepository;
 import mysite.security.UserDetailsServiceImpl;
 
-@Configuration
+@SpringBootConfiguration
 @EnableWebSecurity
 public class SecurityConfig {
-	
-	 @Bean 
-	    public WebSecurityCustomizer webSecurityCustomizer() {
-	        return WebSecurity -> WebSecurity.httpFirewall(new DefaultHttpFirewall());
-	 }
-	 
+    @Bean
+    public WebSecurityCustomizer webSecurityCustomizer() {
+        return webSecurity -> webSecurity.httpFirewall(new DefaultHttpFirewall());
+    }
+    
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -82,9 +81,10 @@ public class SecurityConfig {
         			
         			.anyRequest()
         			.permitAll();
-        	})
+        	});
+        	/*
         	.exceptionHandling(exceptionHandling -> {
-        		// exceptionHandling.accessDeniedPage("/WEB-INF/views/errors/403.jsp");
+        		// exceptionHandling.accessDeniedPage("/error/403");
         		exceptionHandling.accessDeniedHandler(new AccessDeniedHandler() {
 					@Override
 					public void handle(
@@ -95,7 +95,7 @@ public class SecurityConfig {
 					}
         		});
         	});
-        
+        	*/
     	return http.build();
     }
     
